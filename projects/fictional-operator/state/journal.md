@@ -17,3 +17,24 @@
 | S13 — Final handoff | pending | — | Не готовить как подтверждённый business case до закрытия пробелов. |
 
 Не заявлены: интервью, клиентские данные, доступ к биллингу/CRM, проведённый пилот, фактические расходы, paid run или end-to-end agent-runtime validation.
+
+## Дополнение после critic/revision/validation
+
+| Step | Status | Evidence / artifact | Notes |
+|---|---|---|---|
+| S07 — Communication strategy | draft complete | `output/communication_strategy.md` | Сообщение «Помощь с согласия, не контроль»; fear-of-surveillance оставлен гипотезой CL-015. |
+| S08 — Critic | complete (desk review) | `output/critic.md` | Findings F-01…F-10; вердикт Revise. Не является внешним независимым review. |
+| S09 — Revision | complete (document revision) | `output/revision.md` | Все findings получили disposition; критические evidence gaps не закрыты. |
+| S10 — Validation | complete (document audit; NOT READY) | `output/validation.md` | Отмечены Partial / Not Verified; gate 2 не пройден. |
+| S11 — Handoff summary | draft | `output/summary.md` | Подготовлен handoff с ограничениями; не утверждённый business case. |
+| S12 — Human gate 2 | pending / not passed | `state/decision_card.md` | Решение expand / iterate / extend / stop возможно только после пилота и отдельного ответа человека. |
+| S13 — Final handoff | partial | `output/summary.md` | Документы собраны, но финальная готовность отсутствует из-за блокеров validation. |
+
+## Tool execution and measurement status
+
+- Репозиторный `tools/parse_doc.py` на исходном PDF: **не подтверждён запуск**.
+- `tools/metrics.py check --strict`: **не подтверждён запуск**, входная таблица/отчёт отсутствуют.
+- `tools/search.py` / `tools/fetch_cache.py` на этом кейсе: **не подтверждён запуск**.
+- LLM/API calls, внешние инструменты и ручное время: **нет измеренных записей**. Пустой `budget.json` не означает нулевую стоимость.
+- Видео и PDF-описание для жюри: **не созданы/не подтверждены**.
+- Никакие интервью, системные тесты, пилотные результаты или approval не добавлены задним числом.
