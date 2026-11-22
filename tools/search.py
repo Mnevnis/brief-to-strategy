@@ -151,15 +151,17 @@ def main():
 
     key = f"search:{a.query}|max={a.max}"
     cache = SEARCH_DIR / (hashlib.sha1(key.encode()).hexdigest()[:12] + ".json")
-    if not a.force:
-        if ledger("check", a.project, key) == 0 or cache.exists():
-            if cache.exists():
-                d = json.loads(cache.read_text(encoding="utf-8"))
-                print(f"[search] SKIP повтор: {len(d['results'])} результатов из кэша {cache}")
-                if a.json:
-                    print(json.dumps(d, ensure_ascii=False))
-                return 0 if d["results"] else 4
-            return 0
+    if not a.force and cache.exists():
+        try:
+            d = json.loads(cache.read_text(encoding="utf-8"))
+            print(f"[search] SKIP повтор: {len(d['results'])} результатов из кэша {cache}")
+            if a.json:
+                print(json.dumps(d, ensure_ascii=False))
+            return 0 if d["results"] else 4
+        except (OSError, json.JSONDecodeError, KeyError, TypeError):
+            print("[search] WARN: cache is invalid; performing a fresh search")
+    elif not a.force and ledger("check", a.project, key) == 0:
+        print("[search] WARN: ledger says completed but cache artifact is missing; performing a fresh search")
 
     providers = [] if a.offline else [("ddg-html", p_ddg_html), ("ddg-lite", p_ddg_lite), ("searxng", p_searx)]
     results, used, tried = [], None, []
