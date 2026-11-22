@@ -12,6 +12,10 @@
 | Участник семейной группы | Получает приглашение или управляет настройками доступа | Понять, кто приглашает, какие данные будут видны и как отказаться/отозвать разрешение | CL-009 |
 | Организатор перед операцией | Видит предложение выделить интернет | Проверить тариф, остаток, объём и последствия; подтвердить действие самостоятельно | CL-007; требования безопасности в strategy.md |
 
+## External context — conditional, not a legal conclusion
+
+The EDPB Guidelines 05/2020 describe valid consent under the GDPR as freely given, specific, informed and unambiguous, and discuss withdrawal of consent (CL-018). This is a useful design reference only if the processing falls within GDPR scope. The fictional brief does not specify jurisdiction, so this document does not determine legal applicability or replace local legal review.
+
 ## 2. Барьер и его статус
 
 **Рабочая гипотеза барьера:** участник может воспринимать семейную функцию как слежку или потерю контроля над личными данными. Это логичный риск для продукта, который передаёт сведения о номере другому человеку, но в исходном брифе нет интервью или измерений, подтверждающих распространённость такого опасения. См. CL-015 (hypothesis).

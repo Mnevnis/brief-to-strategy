@@ -11,8 +11,10 @@
 | S05 — Options | complete (draft) | `output/options.md` | Сравнены Status quo, B, C и Kill. |
 | S06 — Human gate 1 | direction selected | `state/decisions.md` | Пользователь выбрал B (семейные группы) 2026-11-22. Бюджет/пилот не утверждены. |
 | S07 — Strategy draft | draft | `output/strategy.md` | План на год и ориентир на Y3 сформулированы как цели/условия; численные прогнозы, не подтверждённые данными, не выдуманы. |
-| S08 — Critic / revision | pending | — | Требуется независимая проверка стратегии и допущений. |
-| S09–S11 — Validation / release | blocked | — | Нужны evidence, проверенные ресурсы/экономика и последующие результаты. |
+| S08 — Critic | complete (desk review) | `output/critic.md` | Findings F-01…F-10; внешняя независимая экспертиза не проводилась. |
+| S09 — Revision | complete (document revision) | `output/revision.md` | Все findings получили disposition; критические gaps остаются. |
+| S10 — Critic loop | one document-only cycle | `output/critic.md`, `output/revision.md` | Повторная независимая внешняя критика не проводилась. |
+| S11 — Human strategy approval | pending / not passed | `state/decisions.md` | Человек ещё не утвердил стратегию к реализации. |
 | S12 — Human gate 2 | pending | `state/decisions.md` | Решение об охвате — после пилота в Q2. |
 | S13 — Final handoff | pending | — | Не готовить как подтверждённый business case до закрытия пробелов. |
 
@@ -38,3 +40,19 @@
 - LLM/API calls, внешние инструменты и ручное время: **нет измеренных записей**. Пустой `budget.json` не означает нулевую стоимость.
 - Видео и PDF-описание для жюри: **не созданы/не подтверждены**.
 - Никакие интервью, системные тесты, пилотные результаты или approval не добавлены задним числом.
+
+
+## Tool execution evidence — 2026-11-22
+
+| Check | Result | Evidence |
+|---|---|---|
+| Original PDF with repository `tools/parse_doc.py` v1.0 | exit 0; 11 pages; 4 tables; 0 automatic warnings | `materials/parsed/source_pdf_run.md`; source SHA-256 recorded |
+| Parser on primary and second-brief CSV fixtures | both exit 0; 0 warnings | CI artifact `fictional-operator-tool-run` |
+| `metrics.py check --strict` on both fixtures | both exit 0; 0 warnings | `output/metrics/brief_metrics_audit.md`; second report in `projects/second-brief/output/metrics/` |
+| `search.py` | exit 4; DDG HTML/Lite yielded zero results, SearXNG network errors | `output/tool_runs/smoke_run.md`; search failure retained, not masked |
+| `fetch_cache.py` | exit 0; official EDPB landing page fetched, 44,890 bytes, 0 injection flags | cache metadata/text excerpt in CI artifact |
+| `cost_log.py init/check/report` | exit 0; no LLM/API usage entries | `state/budget.json`, root `COSTS.md` |
+| Automated smoke-run | 13.910 s wall time | `output/tool_runs/smoke_run.md` |
+| Manual time / full agent runtime | not measured | no timer/usage evidence; do not infer |
+
+The search provider chain was exercised but produced no usable result; the EDPB fetch was a direct official-source fallback, not a search result. The second brief is derived from the same user brief and is not an independent portability benchmark. S03 remains partial because external search discovery degraded and no independent evidence was gathered.

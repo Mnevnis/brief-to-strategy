@@ -1,0 +1,5 @@
+metric,gross_profit_млн_руб,active_family_groups_clients,connected_family_groups_clients,connected_own_number_owners_clients,activation_%,source_page
+baseline_plan,282,5000,7500,1000,50,p.3
+baseline_estimate,275,4000,6500,800,42,p.3
+plan_year_no_change,279,8000,1000,1000,45,p.3
+plan_year_target,285,12000,2000,2000,60,p.3

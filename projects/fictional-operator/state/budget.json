@@ -1,0 +1,27 @@
+{
+  "project": "fictional-operator",
+  "limit_usd": 5,
+  "warn_at_pct": 80,
+  "history": [],
+  "prices_per_1m": {
+    "deepseek-chat": {
+      "in": "0.30",
+      "out": "1.20"
+    },
+    "qwen-free": {
+      "in": "0",
+      "out": "0"
+    },
+    "claude-sonnet": {
+      "in": "3",
+      "out": "15"
+    },
+    "claude-haiku": {
+      "in": "1",
+      "out": "5"
+    }
+  },
+  "spent_usd": 0,
+  "updated_at": "2026-11-22T17:31:23.790868+00:00",
+  "notes": "No LLM/API calls were made in the tool smoke run. Empty history does not measure the full agent run or human work."
+}

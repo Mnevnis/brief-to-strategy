@@ -40,3 +40,10 @@
 - Для пилота нужны стабильный trigger, проверяемый outcome, безопасная контрольная группа, достаточный темп набора и доступ к данным в обеих группах.
 - Для расширения нужен эффект на клиентском outcome, подтверждённая корректность операции, приемлемые adverse events и экономика с прямыми затратами.
 - Если интервал/диапазон оценок совместим и с заметной пользой, и с отсутствием улучшения, данных недостаточно для расширения.
+
+
+## 6. Внешний контекст — не исходные данные кейса
+
+EDPB Guidelines 05/2020 on consent under Regulation 2016/679 were adopted on 4 May 2020. The guidance discusses freely given, specific, informed and unambiguous consent and withdrawal (CL-018). It is recorded only as a conditional design reference: the brief does not state the operator's jurisdiction or whether GDPR applies. This source does not change the fictional market assumptions and is not a legal applicability assessment.
+
+Source: https://www.edpb.europa.eu/system/files/documents/files/file1/edpb_guidelines_202005_consent_en.pdf
