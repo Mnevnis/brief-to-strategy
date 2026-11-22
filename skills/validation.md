@@ -425,3 +425,17 @@ It must not claim that unverified requirements, implementations, experiments, or
 ## Repository Checks for S12
 
 For every CSV/XLSX file that materially supports a quantitative conclusion, run python tools/metrics.py check <file> --project <project> --strict from the repository root. Save the generated report under the project metrics output and record the command/result in output/validation.md. Exit code 3 means warnings were found and require explicit human review; do not mark the related requirement Pass until warnings are resolved or accepted with rationale. Also verify the .md and .meta.json provenance outputs for files processed by tools/parse_doc.py.
+
+## Communication and Promise Validation (Mandatory)
+
+Validate `output/communication_strategy.md` against the product strategy and evidence ledger. For every material promise, check:
+- audience and situation are defined;
+- barrier is evidence-backed or explicitly marked hypothesis;
+- message is specific and within product scope;
+- proof is an existing, tested capability, not a requirement or roadmap item;
+- eligibility, consent, data freshness, and failure states are disclosed;
+- channel and CTA do not reveal unauthorized data or create pressure;
+- KPI has a definition, data source, and guardrails;
+- every promise links to claim IDs and a verifiable test/artifact.
+
+Mark the requirement Partial or Not Verified if tests are pending. A strategy cannot be Ready while a material customer promise is unsupported or contradicts product behavior.
