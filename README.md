@@ -46,19 +46,20 @@
 
 ### 2.3 Установка
 
-Перед запуском сверяйтесь с актуальными `package.json`, `tools/requirements.txt`, `.env.example` и инструкциями выбранной среды.
+В текущем репозитории нет `package.json` и `.env.example`; Node.js и `npm install` не требуются. Для инструментов обработки документов установите зависимости из `tools/requirements.txt`.
 
 ```bash
-git clone <REPOSITORY_URL>
+git clone https://github.com/Mnevnis/brief-to-strategy.git
 cd brief-to-strategy
 
 # Установите зависимости только если они указаны проектом:
-npm install
-pip install -r tools/requirements.txt
+python -m venv .venv
+# Linux/macOS: source .venv/bin/activate
+# Windows PowerShell: .venv\\Scripts\\Activate.ps1
+python -m pip install -r tools/requirements.txt
 
-# Если предусмотрен .env:
-cp .env.example .env
-# Заполните локальные ключи; не коммитьте .env
+# Секреты нужны только если выбранная агентная среда/провайдер их требует.
+# Не создавайте и не коммитьте .env, если он не используется.
 ```
 
 Запустите выбранную агентную среду в корне репозитория. Первый запрос:
@@ -105,8 +106,8 @@ skills/
   revision.md              # обработка findings и доработка
   validation.md            # финальная проверка
   README.md               # каталог skills (если добавлен)
-hooks/                    # hooks, если настроены
-tools/                    # скрипты, если присутствуют
+hooks/                    # cost_log.py, action_ledger.py
+tools/                    # поиск, загрузка, парсинг и метрики
 knowledge/
   methodology/             # методология
   sources/                # реестр/кэш источников, если используется
@@ -179,7 +180,7 @@ Skills — процедурные инструкции, которые зада�
 - `claims.jsonl` — реестр существенных claims с уникальными IDs, источниками, статусами и evidence.
 - `decisions.md` — выбор и утверждения человека, rationale, ответственный, метрики и триггеры пересмотра.
 - `journal.md` — журнал этапов, состояния, артефактов и возобновления.
-- `budget.json` — расходы/лимиты только в том случае, если их сбор действительно подключён.
+- `budget.json` — лимит и журнал вызовов, если usage передаётся в `hooks/cost_log.py`.
 
 Стратегические выводы должны ссылаться на evidence. Синтетические респонденты — только гипотезы; они не доказывают спрос.
 
