@@ -51,6 +51,12 @@ def render_report(data):
     lines=["# COSTS — расходы и время","",
         f"Обновлено: {data.get('updated_at') or 'не обновлялось'} · лимит: ${data['limit_usd']} · потрачено: ${data.get('spent_usd',0)}","",
         "Отражены только вызовы, записанные в budget.json. Поиск, страницы, внешние инструменты и ручная доработка учитываются отдельно.","",
+        "## Регистрация расходов","",
+        "Перед платным вызовом выполните preflight, после него — log с уникальным ID:","",
+        "    python hooks/cost_log.py preflight --project <project> --model <model> --tin <input_tokens> --tout <max_output_tokens>",
+        "    python hooks/cost_log.py log --project <project> --run <run-id> --step <step> --model <model> --tin <input_tokens> --tout <output_tokens> --sec <seconds> --id <unique-call-id> --estimate",
+        "    python hooks/cost_log.py report --project <project>","",
+        "Для внешних расходов используйте preflight --reserve-usd <amount>, а после вызова log --actual-usd <amount> с описанием в --action. Человеческое время фиксируйте отдельно в таблице ниже.","",
         "## Итого по прогонам","","| Прогон | Шагов | Время, мин | Время, сек | Стоимость, $ | Estimate-записей |","|---|---:|---:|---:|---:|---:|"]
     for name,run in runs.items():
         lines.append(f"| {name} | {len(run['steps'])} | {run['seconds']/60:.2f} | {run['seconds']} | {run['cost']:.6f} | {run['estimated']} |")
