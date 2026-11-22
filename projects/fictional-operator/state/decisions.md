@@ -34,3 +34,17 @@
 - Options: expand / change offer / continue observation / stop.
 - Financial review: pending.
 - Human decision: **not received**.
+
+
+## Strategy approval gate (workflow S11)
+
+- Status: **pending / not approved**.
+- The selected B direction and current strategy draft are not approval to implement.
+- Required before approval: resolve or explicitly accept critical critic findings, confirm source/operational evidence, resource capacity, direct cost assumptions, and consent/security acceptance tests.
+- Human decision: not received.
+
+## Post-pilot business gate (brief decision at end of Q2)
+
+- Status: **pending / not passed**.
+- No pilot has been approved or run; no expand / change offer / continue observation decision exists.
+- Financial review and human decision remain outstanding.

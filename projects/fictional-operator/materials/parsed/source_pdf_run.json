@@ -1,0 +1,42 @@
+{
+  "parser": "tools/parse_doc.py",
+  "version": "1.0",
+  "parser_git_blob_sha": "0b8932d4460ac1de21da02214324ab862c938854",
+  "parsed_at": "2026-11-22T17:32:08.774570+00:00",
+  "source_file": "Пример брифа (1).pdf",
+  "source_sha256": "558d2c665caa4f4954135c8bbfb69d791e398dcdc5b625d5ded7bdb2d0eb0fa5",
+  "sections": 11,
+  "tables": [
+    {
+      "table": "p3.table1",
+      "rows": 7,
+      "cols": 7,
+      "auto_warnings": 0,
+      "review_note": "merged header cells; empty columns/values require visual cross-check"
+    },
+    {
+      "table": "p7.table1",
+      "rows": 3,
+      "cols": 9,
+      "auto_warnings": 0,
+      "review_note": "merged cells; visual cross-check required"
+    },
+    {
+      "table": "p10.table1",
+      "rows": 4,
+      "cols": 9,
+      "auto_warnings": 0,
+      "review_note": "merged cells; visual cross-check required"
+    },
+    {
+      "table": "p11.table1",
+      "rows": 4,
+      "cols": 9,
+      "auto_warnings": 0,
+      "review_note": "merged cells; visual cross-check required"
+    }
+  ],
+  "warnings": [],
+  "exit_code": 0,
+  "note": "Source PDF is not committed; see parser_run.md and the normalized brief.md."
+}

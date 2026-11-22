@@ -1,13 +1,40 @@
 # COSTS — расходы и время
 
-**Статус:** измеренных прогонов нет. Пустая история не означает нулевую стоимость.
+Обновлено: 2026-11-22T17:31:23.790868+00:00 · лимит: $5.0 · записано: $0.00
 
-Для каждого платного вызова: сначала preflight, затем log с уникальным ID. Если провайдер вернул фактическую стоимость, передавайте --actual-usd; иначе запись будет помечена estimate=true.
+**Scope:** `cost_log.py` зарегистрировал отсутствие вызовов модели в tool smoke run. Это не означает, что полный агентный прогон, ручная работа или CI имеют нулевую стоимость.
 
-    python hooks/cost_log.py preflight --project megafon-demo --model deepseek-chat --tin 20000 --tout 5000
-    python hooks/cost_log.py log --project megafon-demo --run demo-1 --step 3 --model deepseek-chat --tin 20000 --tout 5000 --sec 18 --id unique-call-id --estimate
-    python hooks/cost_log.py report --project megafon-demo
+## Регистрация расходов
 
-Команда report перегенерирует этот файл с суммой по прогонам, временем, стоимостью и детализацией вызовов. Поиск, число открытых страниц, внешние инструменты и ручная доработка фиксируются отдельно в таблице «Внешние расходы и ручное время»; они не входят в LLM subtotal автоматически.
+Перед платным вызовом:
 
-Тарифы в конфигурации — ориентир и должны сверяться с актуальным прайс-листом. Неизвестная цена блокирует preflight.
+    python hooks/cost_log.py preflight --project <project> --model <model> --tin <input_tokens> --tout <max_output_tokens>
+
+После вызова:
+
+    python hooks/cost_log.py log --project <project> --run <run-id> --step <step> --model <model> --tin <input_tokens> --tout <output_tokens> --sec <seconds> --id <unique-call-id> --estimate
+
+## Итого по прогонам
+
+| Прогон | Шагов с LLM usage | Время модели | Стоимость, $ | Estimate-записей |
+|---|---:|---:|---:|---:|
+| tool-smoke-2026-11-22 | 0 | 0 s | 0.000000 | 0 |
+
+## По вызовам
+
+Записей нет: smoke-run не вызывал LLM/API.
+
+## Внешние расходы и ручное время
+
+| Категория | Количество / время | Стоимость | Статус |
+|---|---:|---:|---|
+| Search/fetch | 1 поиск + 1 fetch | Не измерена | Search exit 4; fetch успешен |
+| CI runner | 13.910 s автоматического smoke-run | Не измерена | GitHub Actions billing не проверялся |
+| Ручная подготовка и ревью | Не измерено | Не измерена | Нет time-tracking записи |
+
+## Методика
+
+- $0.00 — сумма зарегистрированных LLM/API вызовов в этом smoke-run, не общая стоимость работы.
+- Нет usage — не создавать фиктивную estimate-запись.
+- Тарифы в `hooks/cost_log.py` необходимо сверять с тарифами провайдера.
+- Ручное время, поиск и страницы не включаются в сумму LLM автоматически.

@@ -24,3 +24,5 @@
 - В output-документах приводить оба ID, если вывод синтезирует evidence.
 - Hypothesis/forecast не повышать до fact без нового источника и обновления claims.
 - Для каждого нового источника добавлять provenance и claim IDs; старые claims не удалять, а переводить в `outdated` / `retracted` при необходимости.
+
+| E-13 | CL-018 | External GDPR consent guidance; applicability to the fictional operator is not established |

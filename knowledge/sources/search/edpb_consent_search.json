@@ -1,0 +1,14 @@
+{
+  "query": "European Data Protection Board Guidelines 05/2020 consent official",
+  "key": "search:European Data Protection Board Guidelines 05/2020 consent official|max=3",
+  "ts": "2026-11-22T17:31:34.144152+00:00",
+  "provider_used": null,
+  "providers_tried": [
+    "ddg-html",
+    "ddg-lite",
+    "searxng"
+  ],
+  "degraded": true,
+  "sec": 10,
+  "results": []
+}

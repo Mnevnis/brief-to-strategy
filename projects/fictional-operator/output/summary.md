@@ -45,3 +45,15 @@
 В кейсе нет интервью, CRM/support/billing extracts, результатов usability/security tests, пилотных данных, фактической стоимости разработки или измерений agent run. Никакие такие данные не моделировались как реальные.
 
 **Рекомендация:** продолжить только ограниченный discovery после отдельного согласования ресурсов и доступа. Не утверждать разработку, пилот или масштабирование по текущему пакету.
+
+## Tool execution evidence (2026-11-22)
+
+- Exact repository parser v1.0 was run on the original 11-page PDF: 11 sections, 4 extracted tables, exit 0, 0 automatic warnings. Merged-cell table extraction still requires visual review; provenance is in `materials/parsed/source_pdf_run.md`.
+- `metrics.py check --strict` passed on the primary and second-brief CSV fixtures: exit 0, 0 warnings each.
+- Search attempted DDG HTML, DDG Lite and SearXNG but produced no usable results (exit 4). The EDPB page was fetched separately through an official-source fallback; do not present it as a search result.
+- Automated tool smoke-run: 13.910 seconds. `cost_log.py` recorded no LLM/API calls and $0.00 LLM usage for that smoke-run only. Manual time and full-agent cost remain unmeasured.
+- The second mini-brief is derived from the same source brief; it is not an independent portability benchmark.
+
+## Remaining gates
+
+The strategy approval gate (workflow S11) has not been passed. The post-pilot business gate at the end of Q2 has also not been passed because no pilot was approved or run. Video and jury PDF remain absent.

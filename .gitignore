@@ -13,6 +13,11 @@ tmp/
 .DS_Store
 
 # Runtime caches and lock files
-knowledge/sources/cache/
-knowledge/sources/search/
+knowledge/sources/cache/*
+!knowledge/sources/cache/*.meta.json
+!knowledge/sources/cache/*.md
+!knowledge/sources/cache/.gitkeep
+knowledge/sources/search/*
+!knowledge/sources/search/*.json
+!knowledge/sources/search/.gitkeep
 *.lock

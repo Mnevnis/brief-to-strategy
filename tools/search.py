@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""search.py — поиск открытых источников (DuckDuckGo без ключа), как заявлено в README §5.3.
+"""search.py — поиск открытых источников (DuckDuckGo без ключа), как описано в README §8.
 
 Цепочка провайдеров: ddg-html -> ddg-lite -> searxng (public) -> L2 (только курированный реестр).
 Идемпотентность: ключ "search:<запрос>|max|lang" через hooks/action_ledger.py + локальный кэш JSON.
@@ -168,15 +168,18 @@ def main():
     t0 = time.time()
     for name, fn in providers:
         tried.append(name)
-        for attempt in range(3):  # retry с backoff (T2.4)
+        for attempt in range(3):  # retry с backoff
             try:
-                results = fn(a.query, a.max, a.timeout)
-                used = name
+                candidate = fn(a.query, a.max, a.timeout)
+                if not candidate:
+                    print(f"[search] {name}: 0 результатов; пробую следующий провайдер")
+                    break
+                results, used = candidate, name
                 break
             except Exception as e:
                 print(f"[search] fail {name} попытка {attempt+1}: {type(e).__name__}")
                 time.sleep(2 ** attempt)
-        if used:
+        if results:
             break
     sec = int(time.time() - t0)
     degraded = used is None or used != providers[0][0] if providers else True

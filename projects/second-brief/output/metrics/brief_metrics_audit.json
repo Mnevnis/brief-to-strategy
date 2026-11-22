@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "command": "tools/metrics.py check projects/second-brief/materials/brief_metrics.csv --project second-brief --name brief_metrics_audit --strict",
+    "input": "projects/second-brief/materials/brief_metrics.csv",
+    "sha256": "0f6e4f5de8a2728d5d1b7e9528788a8fed178b904e45e7bff0bb0a96a3f19b33",
+    "ts": "2026-11-22T17:31:23.709964+00:00",
+    "pandas": "2.3.3",
+    "python": "3.11.18",
+    "checks": {
+      "missing": {},
+      "units": {
+        "available_market_owners_clients": [
+          "people"
+        ],
+        "connected_owners_base_plan_clients": [
+          "people"
+        ],
+        "connected_owners_base_estimate_clients": [
+          "people"
+        ],
+        "plan_year_no_change_clients": [
+          "time",
+          "people"
+        ],
+        "plan_year_target_clients": [
+          "time",
+          "people"
+        ]
+      },
+      "periods": {
+        "plan_year_target_clients": [
+          "year"
+        ]
+      },
+      "date_ranges": {},
+      "duplicates": 0
+    },
+    "warnings": []
+  },
+  "rows": 1,
+  "cols": 8
+}
