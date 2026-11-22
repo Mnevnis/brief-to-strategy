@@ -600,3 +600,31 @@ Provide the critic stage with:
 The strategy stage is responsible for making the strategic choices and translating them into a coherent plan.
 
 It must not hide uncertainty or present unsupported forecasts as established facts.
+
+## Phase 16. Develop the Communication Strategy (Mandatory)
+
+A complete strategy must include a communication strategy aligned with the product proposition. Do not treat communication as a launch checklist or as a substitute for product capability.
+
+For each priority audience and contact situation, specify:
+1. **Audience and situation:** who receives the communication, at what moment, and what they know.
+2. **Barrier:** the practical, emotional, trust, or comprehension barrier. Mark it as fact only when supported by research; otherwise label it hypothesis and define how to test it.
+3. **Key message:** one clear promise relevant to the situation.
+4. **Proof:** the product capability, policy, data, or verified process that makes the promise true. A requirement or planned feature is not proof that the feature works.
+5. **Channel role:** why push, in-product screen, email, support, or another channel is used; define timing, format, CTA, and privacy limits.
+6. **KPI:** define comprehension, action, outcome, and guardrail metrics with formula, source, baseline, target/threshold, and owner where known.
+
+### Promise-to-product consistency
+
+Create a promise ledger for every material customer-facing claim:
+- exact proposed wording;
+- audience and channel;
+- product capability required;
+- evidence/test proving the capability;
+- restrictions, eligibility, consent and freshness conditions;
+- status: verified / conditional / not verified / prohibited.
+
+Never promise availability, immediacy, diagnosis, privacy behavior, or outcomes that have not been verified. Where a capability is planned, phrase it as a product requirement, not as a current fact. Include the promise ledger in the strategy handoff to critic and validation.
+
+### Required communication output
+
+Create `output/communication_strategy.md` with audience/situation → barrier → key message + proof → channel role → KPI, plus exclusions, test plan, and claim IDs. The product strategy and communication strategy must use consistent scope, eligibility, consent rules, and outcome definitions.
