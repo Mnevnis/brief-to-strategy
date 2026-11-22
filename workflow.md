@@ -55,7 +55,7 @@ projects/<project>/
 | S03 | python tools/parse_doc.py <file.pdf|docx|xlsx|csv> -o projects/<project>/materials/parsed --url <URL> --title "<title>" | .md + .meta.json с provenance и проверками |
 | S03 / S04 | python tools/metrics.py check <file.csv|xlsx> --project <project> --strict | отчёт аудита в output/metrics/; код 3 = предупреждения, нужен человек |
 | S04 | python tools/parse_doc.py <file> -o projects/<project>/materials/parsed --url <URL> | нормализованный Markdown и метаданные для анализа |
-| S04 | python tools/metrics.py retention|arpu|funnel <file> --project <project> --strict (для funnel добавить --stages "<stage1,stage2,...>") | воспроизводимый расчёт .md + .json; схема колонок должна соответствовать входу |
+| S04 | python tools/metrics.py retention <file> --project <project> --strict; либо arpu <file> ...; либо funnel <file> --stages "<stage1,stage2,...>" ... | воспроизводимый расчёт .md + .json; схема колонок должна соответствовать входу |
 | S03 / S14 | python hooks/action_ledger.py start --project <project> --key <stable-key> → действие → done или fail с тем же key | state/action_ledger.jsonl; check перед повтором |
 | S12 | python tools/metrics.py check <file.csv|xlsx> --project <project> --strict для каждого числового источника; затем checklist skills/validation.md | output/validation.md со статусом и блокерами |
 | S14 | python hooks/action_ledger.py check --project <project> --key <stable-key> перед повтором; новые search/fetch — командами S03 | ledger, новые claims, обновлённые registry/cache и output/revision.md |
