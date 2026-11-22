@@ -487,3 +487,16 @@ Provide the revision stage with:
 The critic must not modify the strategy.
 
 Its responsibility is to independently identify and explain weaknesses that the revision stage must address.
+
+## Communication and Promise Consistency Review (Mandatory)
+
+Review the communication strategy alongside the product strategy. For every customer-facing promise, verify that the described product capability exists and is supported by evidence or a completed test. Check audience, contact situation, barrier evidence, message, proof, channel timing/role, consent, eligibility, data freshness, and KPI.
+
+Raise a finding when:
+- a barrier is presented as a proven customer insight without research;
+- a planned requirement is used as proof of a working capability;
+- a message promises more than the product can deliver;
+- a channel exposes data beyond the user's consent or reveals sensitive details on a lock screen;
+- communication KPIs optimize clicks/opt-in while ignoring comprehension, complaints, consent withdrawal, or customer outcome.
+
+The critic must cite claim IDs and classify unsupported barriers as hypotheses.
