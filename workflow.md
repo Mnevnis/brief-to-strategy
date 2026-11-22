@@ -52,9 +52,9 @@ projects/<project>/
 | S02 | Инструменты не запускаются до утверждения плана; определить запросы, лимиты и критерии остановки | output/research_plan.md |
 | S03 | python tools/search.py "запрос" --project PROJECT --max 8 --json | кэш поиска и записи в knowledge/sources/registry.md |
 | S03 | python tools/fetch_cache.py SOURCE_URL --project PROJECT | knowledge/sources/cache/*, .meta.json, registry |
-| S03 | python tools/parse_doc.py path/to/input-file -o projects/<project>/materials/parsed --url SOURCE_URL --title SOURCE_TITLE | .md + .meta.json с provenance и проверками |
+| S03 | python tools/parse_doc.py path/to/input-file -o projects/PROJECT/materials/parsed --url SOURCE_URL --title SOURCE_TITLE | .md + .meta.json с provenance и проверками |
 | S03 / S04 | python tools/metrics.py check path/to/input.csv --project PROJECT --strict | отчёт аудита в output/metrics/; код 3 = предупреждения, нужен человек |
-| S04 | python tools/parse_doc.py path/to/input-file -o projects/<project>/materials/parsed --url SOURCE_URL | нормализованный Markdown и метаданные для анализа |
+| S04 | python tools/parse_doc.py path/to/input-file -o projects/PROJECT/materials/parsed --url SOURCE_URL | нормализованный Markdown и метаданные для анализа |
 | S04 | python tools/metrics.py retention path/to/events.csv --project PROJECT --strict; либо arpu path/to/revenue.csv ...; либо funnel path/to/funnel.csv --stages stage1,stage2,... | воспроизводимый расчёт .md + .json; схема колонок должна соответствовать входу |
 | S03 / S14 | python hooks/action_ledger.py start --project PROJECT --key STABLE_KEY → действие → done или fail с тем же key | state/action_ledger.jsonl; check перед повтором |
 | S12 | python tools/metrics.py check path/to/input.csv --project PROJECT --strict для каждого числового источника; затем checklist skills/validation.md | output/validation.md со статусом и блокерами |
