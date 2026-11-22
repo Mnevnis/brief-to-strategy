@@ -12,3 +12,8 @@ tmp/
 *.log
 
 .DS_Store
+
+# Runtime caches and lock files
+knowledge/sources/cache/
+knowledge/sources/search/
+*.lock
