@@ -441,3 +441,8 @@ Provide the options stage with:
 The analysis stage must not select the final strategy.
 
 Its responsibility is to establish what strategic choices are available and what evidence supports them.
+
+
+## Repository Tools for S04
+
+Before drawing conclusions from local source files, use python tools/parse_doc.py <file> -o projects/<project>/materials/parsed --url <source-url> for supported PDF, DOCX, XLSX, XLS, and CSV inputs. For tabular inputs run python tools/metrics.py check <file> --project <project> --strict; use retention, arpu, or funnel only when the source schema supports the calculation. Preserve generated .md/.meta.json or metrics .md/.json artifacts, record warnings, and link each material conclusion to canonical claim IDs. Exit code 3 from --strict requires review; it is not a clean pass.

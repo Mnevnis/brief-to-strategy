@@ -45,6 +45,23 @@ projects/<project>/
 
 Дополнительные файлы могут создаваться, если это полезно, но не заменяют перечисленные основные артефакты.
 
+### 4.1 Карта инструментов по этапам (обязательная)
+
+| Этап | Команда | Артефакт / результат |
+|---|---|---|
+| S02 | Инструменты не запускаются до утверждения плана; определить запросы, лимиты и критерии остановки | output/research_plan.md |
+| S03 | python tools/search.py "запрос" --project <project> --max 8 --json | кэш поиска и записи в knowledge/sources/registry.md |
+| S03 | python tools/fetch_cache.py <URL> --project <project> | knowledge/sources/cache/*, .meta.json, registry |
+| S03 | python tools/parse_doc.py <file.pdf|docx|xlsx|csv> -o projects/<project>/materials/parsed --url <URL> --title "<title>" | .md + .meta.json с provenance и проверками |
+| S03 / S04 | python tools/metrics.py check <file.csv|xlsx> --project <project> --strict | отчёт аудита в output/metrics/; код 3 = предупреждения, нужен человек |
+| S04 | python tools/parse_doc.py <file> -o projects/<project>/materials/parsed --url <URL> | нормализованный Markdown и метаданные для анализа |
+| S04 | python tools/metrics.py retention|arpu|funnel <file> --project <project> --strict (для funnel добавить --stages "<stage1,stage2,...>") | воспроизводимый расчёт .md + .json; схема колонок должна соответствовать входу |
+| S03 / S14 | python hooks/action_ledger.py start --project <project> --key <stable-key> → действие → done или fail с тем же key | state/action_ledger.jsonl; check перед повтором |
+| S12 | python tools/metrics.py check <file.csv|xlsx> --project <project> --strict для каждого числового источника; затем checklist skills/validation.md | output/validation.md со статусом и блокерами |
+| S14 | python hooks/action_ledger.py check --project <project> --key <stable-key> перед повтором; новые search/fetch — командами S03 | ledger, новые claims, обновлённые registry/cache и output/revision.md |
+
+**Правила вызова:** команды запускаются из корня репозитория. Не передавайте --strict на заведомо неполных/неподходящих данных без интерпретации предупреждений. Код выхода 3 у metrics.py --strict — не успех без оговорок: сохраните предупреждения и запросите человеческую проверку. action_ledger.py использует события start, done, fail; check возвращает 0 для завершённого ключа и 1 для незавершённого. Не отмечайте действие done, пока артефакт не сохранён и проверен.
+
 ### 2.1 Claims
 
 Каждое существенное утверждение в `claims.jsonl` — отдельная JSON-строка с уникальным ID. Рекомендуемый формат:
@@ -122,7 +139,7 @@ projects/<project>/
 4. Для каждого вопроса обозначить, какой вывод или решение он способен изменить.
 5. Установить лимиты, критерии остановки и ожидаемый формат findings.
 
-Выход: `output/research_plan.md`, согласованный с брифом и лимитами. Не начинать массовый поиск до завершения плана.
+Выход: `output/research_plan.md`, согласованный с брифом и лимитами. Не начинать массовый поиск до завершения плана. На S02 только спланируйте команды из карты инструментов; реальный поиск начинается на S03.
 
 ### S03 — Research
 
@@ -137,7 +154,7 @@ projects/<project>/
 6. Разделить факты, интерпретации, гипотезы, прогнозы и синтетические данные.
 7. Отдельно записать gaps и то, что не удалось проверить.
 
-Выход: `output/research.md`, актуальный `claims.jsonl`, registry/cache источников (если соответствующие инструменты есть), обновлённый план и журнал. Если evidence недостаточно, не выдумывать выводы: отметить ограничения и продолжать только если это безопасно и полезно.
+Инструменты S03: tools/search.py → tools/fetch_cache.py → при PDF/DOCX/XLSX/CSV tools/parse_doc.py; для табличных данных запускайте tools/metrics.py check ... --strict. До сетевого действия используйте action_ledger.py check/start, после сохранения и проверки артефакта — done, при отказе — fail. Не объявляйте действие завершённым, если файл кэша отсутствует.\n\nВыход: `output/research.md`, актуальный `claims.jsonl`, registry/cache источников, обновлённый план и журнал. Если evidence недостаточно, не выдумывать выводы: отметить ограничения и продолжать только если это безопасно и полезно.
 
 ### S04 — Analysis
 
@@ -150,7 +167,7 @@ projects/<project>/
 4. Определить ключевые проблемы, возможности, ограничения, trade-offs и неизвестные.
 5. Приоритизировать факторы, способные изменить решение.
 
-Выход: `output/analysis.md` и `output/situation.md` (проверяемая картина ситуации: evidence, insights, gaps, ограничения, IDs claims). Не переходить к вариантам, если выводы не связаны с доказательствами или ключевые пробелы скрыты.
+Инструменты S04: для первичных файлов используйте tools/parse_doc.py; для CSV/XLSX с метриками — tools/metrics.py check <file> --strict, а retention/ARPU/funnel только при наличии нужных колонок и обоснованной метрики. Сохраните отчёты расчётов и свяжите выводы с claims IDs.\n\nВыход: `output/analysis.md` и `output/situation.md` (проверяемая картина ситуации: evidence, insights, gaps, ограничения, IDs claims). Не переходить к вариантам, если выводы не связаны с доказательствами или ключевые пробелы скрыты.
 
 ### S05 — Options
 
@@ -228,7 +245,7 @@ Communication strategy должна определять аудиторию, и�
 
 Применить `skills/validation.md` к утверждённым артефактам. Проверить соответствие брифу и выбранному варианту; полноту и evidence/traceability; согласованность product и communication strategy; логическую связность, реализуемость, ресурсы, экономику; KPI и план проверки; риски, ограничения, assumptions и unresolved issues; обработку findings Critic и Revision; наличие требуемых файлов и корректность ссылок.
 
-Выход: `output/validation.md` со статусом `Ready`, `Ready with Conditions`, `Not Ready` или `Human Review Required`. Если `Not Ready`, вернуть работу на Revision или соответствующий предыдущий этап; не обходить гейт. Если нужно изменить стратегический выбор — вернуться к Options и повторно запросить выбор.
+Инструменты S12: повторно выполните tools/metrics.py check <file> --strict для таблиц, от которых зависят численные выводы; сохраните команду, выходной отчёт и обработку предупреждений. Сопоставьте результат с skills/validation.md и не превращайте предупреждения в Pass.\n\nВыход: `output/validation.md` со статусом `Ready`, `Ready with Conditions`, `Not Ready` или `Human Review Required`. Если `Not Ready`, вернуть работу на Revision или соответствующий предыдущий этап; не обходить гейт. Если нужно изменить стратегический выбор — вернуться к Options и повторно запросить выбор.
 
 ### S13 — Validation plan & handoff
 
@@ -245,7 +262,7 @@ Communication strategy должна определять аудиторию, и�
 
 Запускается по новым данным, запросу человека или триггеру из карточки решения.
 
-Применить `skills/revision.md` и, по необходимости, `research.md`, `analysis.md`, `critic.md`, `validation.md`:
+Применить `skills/revision.md` и, по необходимости, `research.md`, `analysis.md`, `critic.md`, `validation.md`. Для повторных сетевых действий сначала проверить stable-key через python hooks/action_ledger.py check --project <project> --key <stable-key>; если требуется новое получение, выполнить start → действие → done/fail. Повторно использовать tools/search.py, tools/fetch_cache.py, tools/parse_doc.py и tools/metrics.py --strict только для затронутых данных:
 1. Определить, какие claims, assumptions, KPI, риски или решения затронуты.
 2. Добавить новые claims, а старые не удалять; изменившиеся помечать outdated/retracted.
 3. Оценить, нужно ли пересматривать analysis, options, strategy или validation plan.

@@ -420,3 +420,8 @@ Provide the final deliverable with:
 Validation is responsible for verifying the deliverable.
 
 It must not claim that unverified requirements, implementations, experiments, or evidence have been completed.
+
+
+## Repository Checks for S12
+
+For every CSV/XLSX file that materially supports a quantitative conclusion, run python tools/metrics.py check <file> --project <project> --strict from the repository root. Save the generated report under the project metrics output and record the command/result in output/validation.md. Exit code 3 means warnings were found and require explicit human review; do not mark the related requirement Pass until warnings are resolved or accepted with rationale. Also verify the .md and .meta.json provenance outputs for files processed by tools/parse_doc.py.

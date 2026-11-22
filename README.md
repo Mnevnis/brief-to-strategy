@@ -32,36 +32,31 @@
 - Python и Node.js — если используемые скрипты/CLI требуют их
 - API keys — только для реально используемых платных API
 
-### 2.2 Секреты и ключи
+### 2.2 Установка на чистом окружении
 
-Ключи размещайте локально в `.env`, который не должен попадать в Git. Используйте `.env.example` как шаблон и проверьте `.gitignore`.
+Требуются Git и Python 3.11 или новее. Node.js, npm install, .env и API-ключи не нужны для локальных инструментов этого репозитория. Если выбранная агентная среда использует собственные credentials, настройте их в самой среде: репозиторий не загружает секреты из .env.
 
-| Переменная | Назначение | Статус |
-|---|---|---|
-| `DEEPSEEK_API_KEY` | DeepSeek API, если подключён | проверить конфигурацию |
-| `OPENROUTER_API_KEY` | OpenRouter, если используется | проверить конфигурацию |
-| `ANTHROPIC_API_KEY` | Anthropic, если используется | опционально / проверить |
-
-Стоимость зависит от актуальных тарифов, модели, объёма и настроек. Не используйте старые оценки стоимости как гарантию.
-
-### 2.3 Установка
-
-В текущем репозитории нет `package.json` и `.env.example`; Node.js и `npm install` не требуются. Для инструментов обработки документов установите зависимости из `tools/requirements.txt`.
-
-```bash
+```
 git clone https://github.com/Mnevnis/brief-to-strategy.git
 cd brief-to-strategy
 
-# Установите зависимости только если они указаны проектом:
 python -m venv .venv
-# Linux/macOS: source .venv/bin/activate
-# Windows PowerShell: .venv\\Scripts\\Activate.ps1
+# Linux/macOS:
+source .venv/bin/activate
+# Windows PowerShell (выполнить вместо предыдущей команды):
+# .venv\\Scripts\\Activate.ps1
+
+python -m pip install --upgrade pip
 python -m pip install -r tools/requirements.txt
 
-# Секреты нужны только если выбранная агентная среда/провайдер их требует.
-# Не создавайте и не коммитьте .env, если он не используется.
+# Offline smoke checks:
+python -m compileall -q hooks tools
+python -m unittest discover -s tests -v
+python tools/parse_doc.py --help
+python tools/metrics.py --help
 ```
 
+Команды запускаются из корня репозитория. Для Windows активируйте окружение PowerShell-командой, указанной в комментарии, вместо команды Linux/macOS.
 Запустите выбранную агентную среду в корне репозитория. Первый запрос:
 
 ```text
@@ -73,7 +68,7 @@ python -m pip install -r tools/requirements.txt
 Остановись на человеческих гейтах и жди моего решения.
 ```
 
-### 2.4 Проверка первого запуска
+### 2.3 Проверка первого запуска
 
 - [ ] Агент прочитал `AGENTS.md`, `workflow.md` и нужный skill.
 - [ ] Проверил brief и материалы проекта.

@@ -245,3 +245,17 @@ Provide the analysis stage with:
 Research must not make the final strategic decision.
 
 Its responsibility is to establish the evidence base for subsequent stages.
+
+
+## Repository Tooling and Provenance
+
+Run repository commands from the repository root:
+
+1. S02 (planning only): write planned queries, target URLs/source classes, page limits, and stop conditions into output/research_plan.md. Do not start bulk collection before the plan is complete.
+2. S03 search: python tools/search.py "research query" --project <project> --max 8 --json. Search results are leads, not evidence by themselves.
+3. S03 fetch: python tools/fetch_cache.py <URL> --project <project>. Confirm the cached file and .meta.json exist before marking the action done.
+4. S03 parse: python tools/parse_doc.py <file> -o projects/<project>/materials/parsed --url <URL> --title "<source title>". Expected outputs are Markdown and a .meta.json provenance record.
+5. S03/S04 tabular audit: python tools/metrics.py check <file.csv|xlsx> --project <project> --strict. Exit code 3 means warnings need human review; it is not a clean pass.
+6. Use python hooks/action_ledger.py check|start|done|fail --project <project> --key <stable-key> around network actions. Use one stable key for all events; record done only after validating the saved artifact.
+
+Canonical claim statuses are fact, hypothesis, forecast, outdated, and retracted, as defined in workflow.md. Keep source metadata in claims; do not promote a search snippet to a fact.
