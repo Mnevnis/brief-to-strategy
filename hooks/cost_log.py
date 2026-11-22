@@ -55,6 +55,12 @@ def main():
     if a.mode=="preflight":
         reserve=amount(a.reserve_usd) if a.reserve_usd is not None else estimate(d,a.model,a.tin,a.tout)
         ok=spent+reserve<limit; print(f"spent={spent} reserve={reserve} projected={spent+reserve} limit={limit} {'ALLOW' if ok else 'BLOCK'}"); return 0 if ok else 2
+    if a.mode=="report":
+        rows=["# COSTS — recorded usage","",f"Updated: {d.get('updated_at') or 'not updated'} | limit: ${d['limit_usd']} | spent: ${d.get('spent_usd',0)}","","Only calls explicitly recorded by cost_log.py are included. Search, tools, invoices and human time must be tracked separately.","","| ID | Run | Step | Model | Input | Output | Seconds | USD | Estimated |","|---|---|---:|---|---:|---:|---:|---:|---|"]
+        for h in d["history"]:
+            rows.append(f"| {h.get('id','')} | {h.get('run','')} | {h.get('step',0)} | {h.get('model','')} | {h.get('tok_in',0)} | {h.get('tok_out',0)} | {h.get('sec',0)} | {h.get('cost_usd',0)} | {bool(h.get('estimate'))} |")
+        Path("COSTS.md").write_text("\\n".join(rows)+"\\n",encoding="utf-8")
+        print("COSTS.md updated"); return 0
     if min(a.tin,a.tout,a.sec)<0: raise ValueError("usage values must be non-negative")
     l=lock(p)
     try:
