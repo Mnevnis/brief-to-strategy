@@ -140,10 +140,14 @@ def main():
     key = f"fetch:{a.urls[0]}"
     idx = json.loads(INDEX.read_text(encoding="utf-8")) if INDEX.exists() else {}
     if not a.force:
-        if _ledger("check", a.project, key) == 0 or a.urls[0] in idx:
-            hit = idx.get(a.urls[0], {})
-            print(f"[fetch] SKIP повтор: {hit.get('path', 'см. ledger')} (используй кэш, не сеть)")
+        hit = idx.get(a.urls[0], {})
+        cached_path = Path(hit.get("path", "")) if hit.get("path") else None
+        cached_text = Path(hit.get("text", "")) if hit.get("text") else None
+        if cached_path and cached_path.is_file():
+            print(f"[fetch] SKIP повтор: {cached_path} (используй кэш, не сеть)")
             return 0
+        if _ledger("check", a.project, key) == 0:
+            print("[fetch] WARN: ledger says completed but cache artifact is missing; refetching safely")
 
     path, used, degraded = _fetch(a.urls, a.timeout, a.retries)
     if path is None:
