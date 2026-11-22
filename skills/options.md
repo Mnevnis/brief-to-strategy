@@ -22,6 +22,30 @@ The options stage must not simply produce several variations of the same strateg
 9. Do not automatically prefer the most ambitious, innovative, or highest-growth option.
 10. Do not select the final strategy at this stage.
 
+## Mandatory baseline alternatives and claim vocabulary
+
+Every options report must include these alternatives explicitly, not merely mention them in a note:
+
+### Status quo — maintain the current state
+Describe what happens if the organization does not make the proposed strategic change. Include the likely consequences of inaction, ongoing costs, and opportunity costs. Do not portray it as automatically safe or neutral.
+
+### Kill — stop or close the direction
+Describe the deliberate decision to stop the initiative, product direction, or proposed investment. Specify what is stopped, obligations that remain, exit/transition costs, customer and operational consequences, and resources that may be released. If a full shutdown is not applicable, explain the narrowest meaningful scope that can be stopped. Do not invent savings or liabilities.
+
+Status quo and Kill are separate alternatives. They do not count as the active strategic option. Unless the brief explicitly changes scope and the human approves that change, provide at least one active alternative as well (minimum three options total).
+
+### Canonical claims statuses
+
+Use only the following machine-readable values in state/claims.jsonl, matching workflow.md:
+
+- fact — directly supported by an inspectable source or reproducible calculation.
+- hypothesis — unverified proposition or interpretation requiring validation.
+- forecast — forward-looking estimate or projection with assumptions.
+- outdated — previously recorded claim no longer current; preserve the record.
+- retracted — withdrawn because it was erroneous or no longer defensible; preserve the record and reason.
+
+Do not substitute labels such as verified, assumption, прогноз, or confirmed in the claims status field. Put confidence in the separate confidence field and explain assumptions/limitations in notes. A source-quality rating is not a claim status.
+
 ## Input
 
 The options stage receives:
